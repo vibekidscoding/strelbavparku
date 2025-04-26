@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>3D Park Runner Scéna</title>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: sans-serif; }
+        canvas { display: block; width: 100%; height: 100%; }
+
+        /* Kontejner pro skóre */
+        #score-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            z-index: 100;
+        }
+
+        /* Kontejner pro životy */
+        #lives-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+        #lives-display {
+            color: red;
+            font-size: 1.5em;
+            line-height: 1;
+            text-decoration: none;
+        }
+
+        /* Zpráva Game Over */
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(200, 0, 0, 0.8);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            z-index: 101;
+            display: none;
+        }
+
+        /* --- Styly pro dotyková tlačítka --- */
+        #touch-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 15px; /* Odsazení zleva */
+            right: 15px; /* Odsazení zprava */
+            width: auto; /* Automatická šířka podle obsahu a odsazení */
+            display: flex;
+            justify-content: space-between; /* Rozmístí skupiny tlačítek */
+            align-items: center;
+            z-index: 99;
+            pointer-events: none;
+        }
+
+        /* Kontejner pro tlačítka pohybu vlevo */
+        #touch-move-controls {
+            display: flex; /* Tlačítka vedle sebe */
+            gap: 15px; /* Mezera mezi tlačítky pohybu */
+            pointer-events: auto; /* Kontejner pro pohyb reaguje */
+        }
+
+        /* Kontejner pro tlačítko střelby vpravo */
+        #touch-shoot-control {
+             pointer-events: auto; /* Kontejner pro střelbu reaguje */
+        }
+
+
+        .touch-button {
+            background-color: rgba(100, 100, 100, 0.6);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            font-size: 2em;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            pointer-events: auto; /* Tlačítka reagují */
+            transition: background-color 0.1s ease;
+        }
+
+        .touch-button:active {
+             background-color: rgba(150, 150, 150, 0.8);
+        }
+
+        /* Odstraníme původní flex-basis, nepotřebujeme je */
+        /* #touch-left, #touch-right { ... } */
+        /* #touch-shoot { ... } */
+
+    </style>
+</head>
+<body>
+    <div id="score-container">
+        <span id="score-display">Skóre: 0</span>
+    </div>
+
+    <div id="lives-container">
+        <span id="lives-display">❤️❤️❤️</span>
+    </div>
+
+    <div id="game-over">GAME OVER</div>
+
+    <div id="touch-controls">
+        <div id="touch-move-controls">
+             <button id="btn-left" class="touch-button">◀</button>
+             <button id="btn-right" class="touch-button">▶</button>
+        </div>
+        <div id="touch-shoot-control">
+            <button id="btn-shoot" class="touch-button">💥</button>
+        </div>
+    </div>
+
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
